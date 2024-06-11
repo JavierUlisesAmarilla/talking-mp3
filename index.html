@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Talking MP3</title>
+</head>
+
+<body>
+  <div id="avatar"></div>
+  <div id="controls">
+    <input id="load" type="file" accept=".m4a,.mp3,.webm,.mp4,.mpga,.wav,.mpeg">
+    <textarea id="json" readonly></textarea>
+    <input id="play" type="button" value="Play" disabled="disable">
+  </div>
+  <div id="loading"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
+</html>
