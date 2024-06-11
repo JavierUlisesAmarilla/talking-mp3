@@ -1,9 +1,12 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import Stats from 'three/addons/libs/stats.module.js';
+import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { LipsyncEn } from './lipsync-en';
+import { LipsyncFi } from './lipsync-fi';
+import { LipsyncLt } from './lipsync-lt';
 
 /**
 * @class Talking Head
@@ -88,7 +91,6 @@ class TalkingHead {
       ttsPitch: 0,
       ttsVolume: 0,
       lipsyncLang: 'fi',
-      lipsyncModules: ['fi', 'en', 'lt'],
       pcmSampleRate: 22050,
       modelRoot: "Armature",
       modelPixelRatio: 1,
@@ -604,8 +606,11 @@ class TalkingHead {
     this.easing = this.sigmoidFactory(5); // Ease in and out
 
     // Lip-sync extensions, import dynamically
-    this.lipsync = {};
-    this.opt.lipsyncModules.forEach(x => this.lipsyncGetProcessor(x));
+    this.lipsync = {
+      'en': new LipsyncEn(),
+      'fi': new LipsyncFi(),
+      'lt': new LipsyncLt()
+    };
     this.visemeNames = [
       'aa', 'E', 'I', 'O', 'U', 'PP', 'SS', 'TH', 'DD', 'FF', 'kk',
       'nn', 'RR', 'CH', 'sil'
@@ -1913,21 +1918,6 @@ class TalkingHead {
         }
       });
     });
-  }
-
-  /**
-  * Get lip-sync processor based on language. Import module dynamically.
-  * @param {string} lang Language
-  * @return {Object} Pre-processsed text.
-  */
-  lipsyncGetProcessor(lang, path = "./") {
-    if (!this.lipsync.hasOwnProperty(lang)) {
-      const moduleName = path + 'lipsync-' + lang.toLowerCase() + '.js';
-      const className = 'Lipsync' + lang.charAt(0).toUpperCase() + lang.slice(1);
-      import(moduleName).then(module => {
-        this.lipsync[lang] = new module[className];
-      });
-    }
   }
 
   /**
