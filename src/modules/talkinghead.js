@@ -1813,6 +1813,7 @@ class TalkingHead {
           this.onSubtitles("" + x);
         }
       } else if (mt === 'speak') {
+        console.log('speak:', x)
         this.speakText("" + x);
       } else if (mt === 'pose') {
         this.poseName = "" + x;
