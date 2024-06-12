@@ -137,6 +137,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   nodePlay.addEventListener('click', function () {
     if (audio) {
       head.speakAudio(audio);
+    } else {
+      head.speakText('Hi there. People often like the UK because we are a tolerant society. We work against prejudice, or we try to. But did you know that native English speakers struggle with their own language around this topic?');
     }
   });
 
