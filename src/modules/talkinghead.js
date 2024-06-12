@@ -2363,7 +2363,7 @@ class TalkingHead {
     if (this.speechQueue.length) {
       let line = this.speechQueue.shift();
       if (line.emoji) {
-
+        console.log('line.emoji')
         // Look at the camera
         this.lookAtCamera(500);
 
@@ -2372,10 +2372,11 @@ class TalkingHead {
         this.animQueue.push(this.animFactory(line.emoji));
         setTimeout(this.startSpeaking.bind(this), duration, true);
       } else if (line.break) {
+        console.log('line.break')
         // Break
         setTimeout(this.startSpeaking.bind(this), line.break, true);
       } else if (line.audio) {
-
+        console.log('line.audio')
         // Look at the camera
         this.lookAtCamera(500);
         this.speakWithHands();
@@ -2388,7 +2389,7 @@ class TalkingHead {
         this.playAudio();
 
       } else if (line.text) {
-
+        console.log('line.text')
         // Look at the camera
         this.lookAtCamera(500);
 
@@ -2489,6 +2490,7 @@ class TalkingHead {
           this.startSpeaking(true);
         }
       } else if (line.anim) {
+        console.log('line.anim')
         // Only subtitles
         this.onSubtitles = line.onSubtitles || null;
         this.resetLips();
@@ -2501,11 +2503,13 @@ class TalkingHead {
         });
         setTimeout(this.startSpeaking.bind(this), 10 * line.anim.length, true);
       } else if (line.marker) {
+        console.log('line.marker')
         if (typeof line.marker === "function") {
           line.marker();
         }
         this.startSpeaking(true);
       } else {
+        console.log('line.empty')
         this.startSpeaking(true);
       }
     } else {
